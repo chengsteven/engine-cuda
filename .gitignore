@@ -29,3 +29,12 @@ teststate
 *.o
 *.so
 *.dylib
+
+*~
+test/*.enc
+sample.in.*
+data
+*.csv
+*.dat
+*.txt
+*.png
