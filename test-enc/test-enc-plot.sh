@@ -2,7 +2,7 @@
 #
 # @version 0.1.0 (2010)
 # @author Paolo Margara <paolo.margara@gmail.com>
-# 
+#
 # Copyright 2010 Paolo Margara
 #
 # This file is part of Engine_cudamrg.
@@ -11,7 +11,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License or
 # any later version.
-# 
+#
 # Engine_cudamrg is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the

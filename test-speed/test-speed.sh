@@ -2,7 +2,7 @@
 #
 # @version 0.1.2 (2011)
 # @author Paolo Margara <paolo.margara@gmail.com>
-# 
+#
 # Copyright 2010 Paolo Margara
 #
 # This file is part of Engine_cudamrg.
@@ -11,7 +11,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License or
 # any later version.
-# 
+#
 # Engine_cudamrg is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -32,7 +32,7 @@ mkdir -p data
 for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc
 	do
 	$OPENSSL speed $OPT -engine cudamrg -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher.txt
-	for i in $(seq 1 $RUN) 
+	for i in $(seq 1 $RUN)
 		do
 		row=$(cat ./data/out-filtered-$cipher.txt |cut -f $i -d :)
 		echo $row >> ./data/$cipher.dat
@@ -43,7 +43,7 @@ for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-25
 for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc
 	do
 	$OPENSSL speed $OPT -engine cudamrg -decrypt -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher-decrypt.txt
-	for i in $(seq 1 $RUN) 
+	for i in $(seq 1 $RUN)
 		do
 		row=$(cat ./data/out-filtered-$cipher-decrypt.txt |cut -f $i -d :)
 		echo $row >> ./data/$cipher-decrypt.dat
@@ -54,7 +54,7 @@ for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-25
 for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc
 	do
 	$OPENSSL speed $OPT -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher.txt
-	for i in $(seq 1 $RUN) 
+	for i in $(seq 1 $RUN)
 		do
 		row=$(cat ./data/out-filtered-$cipher.txt |cut -f $i -d :)
 		echo $row >> ./data/$cipher-cpu.dat
@@ -65,7 +65,7 @@ for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-25
 for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc
 	do
 	$OPENSSL speed $OPT -decrypt -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher-decrypt.txt
-	for i in $(seq 1 $RUN) 
+	for i in $(seq 1 $RUN)
 		do
 		row=$(cat ./data/out-filtered-$cipher-decrypt.txt |cut -f $i -d :)
 		echo $row >> ./data/$cipher-decrypt-cpu.dat

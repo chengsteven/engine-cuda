@@ -1,20 +1,20 @@
 #!/usr/bin/gnuplot -persist
 #
-#    
+#
 #    	G N U P L O T
-#    	Version 4.2 patchlevel 6 
+#    	Version 4.2 patchlevel 6
 #    	last modified Sep 2009
 #    	System: Linux 2.6.32-23-generic
-#    
+#
 #    	Copyright (C) 1986 - 1993, 1998, 2004, 2007 - 2009
 #    	Thomas Williams, Colin Kelley and many others
-#    
+#
 #    	Type `help` to access the on-line reference manual.
 #    	The gnuplot FAQ is available from http://www.gnuplot.info/faq/
-#    
+#
 #    	Send bug reports and suggestions to <http://sourceforge.net/projects/gnuplot>
-#    
-# set terminal png nocrop font /usr/share/fonts/truetype/ttf-liberation/LiberationSans-Regular.ttf 12 size 200,100 
+#
+# set terminal png nocrop font /usr/share/fonts/truetype/ttf-liberation/LiberationSans-Regular.ttf 12 size 200,100
 # set output
 unset clip points
 set clip one
@@ -49,7 +49,7 @@ set grid xtics nomxtics ytics nomytics noztics nomztics \
 set grid layerdefault   linetype 0 linewidth 1.000,  linetype 0 linewidth 1.000
 set key title ""
 set key inside left top vertical Right noreverse enhanced autotitles box linetype 1 linewidth 1.000
-set key noinvert samplen 4 spacing 1 width 0 height 0 
+set key noinvert samplen 4 spacing 1 width 0 height 0
 unset label
 unset arrow
 set style increment default
@@ -63,7 +63,7 @@ set encoding default
 unset polar
 unset parametric
 unset decimalsign
-set view 60, 30, 1, 1  
+set view 60, 30, 1, 1
 set samples 100, 100
 set isosamples 10, 10
 set surface
@@ -103,31 +103,31 @@ set nox2tics
 set noy2tics
 set cbtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set cbtics autofreq
-set title "Encryption performance with AES ECB" 
+set title "Encryption performance with AES ECB"
 set title  offset character 0, 0, 0 font "" norotate
-set timestamp bottom 
-set timestamp "" 
+set timestamp bottom
+set timestamp ""
 set timestamp  offset character 0, 0, 0 font "" norotate
 set rrange [ * : * ] noreverse nowriteback  # (currently [0.00000:10.0000] )
 set trange [ * : * ] noreverse nowriteback  # (currently [-5.00000:5.00000] )
 set urange [ * : * ] noreverse nowriteback  # (currently [-5.00000:5.00000] )
 set vrange [ * : * ] noreverse nowriteback  # (currently [-5.00000:5.00000] )
-set xlabel "Encryption block size [bytes]" 
+set xlabel "Encryption block size [bytes]"
 set xlabel  offset character 0, 0, 0 font "" textcolor lt -1 norotate
-set x2label "" 
+set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 set xrange [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
 set x2range [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
-set ylabel "Encryption speed [bytes/seconds]" 
+set ylabel "Encryption speed [bytes/seconds]"
 set ylabel  offset character 0, 0, 0 font "" textcolor lt -1 rotate by 90
-set y2label "" 
+set y2label ""
 set y2label  offset character 0, 0, 0 font "" textcolor lt -1 rotate by 90
 set yrange [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
 set y2range [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
-set zlabel "" 
+set zlabel ""
 set zlabel  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 set zrange [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
-set cblabel "" 
+set cblabel ""
 set cblabel  offset character 0, 0, 0 font "" textcolor lt -1 rotate by 90
 set cbrange [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
 set zero 1e-08
@@ -139,12 +139,12 @@ set locale "C"
 set pm3d explicit at s
 set pm3d scansautomatic
 set pm3d interpolate 1,1 flush begin noftriangles nohidden3d corners2color mean
-set palette positive nops_allcF maxcolors 0 gamma 1.5 color model RGB 
+set palette positive nops_allcF maxcolors 0 gamma 1.5 color model RGB
 set palette rgbformulae 7, 5, 15
 set colorbox default
 set colorbox vertical origin screen 0.9, 0.2, 0 size screen 0.05, 0.6, 0 front bdefault
-set loadpath 
-set fontpath 
+set loadpath
+set fontpath
 set fit noerrorvariables
 set terminal png size 1000,500
 GNUTERM = "wxt"

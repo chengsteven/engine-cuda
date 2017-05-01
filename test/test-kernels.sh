@@ -14,8 +14,8 @@ fi
 
 echo "ENCRYPTION\n============="
 echo "Cipher\tBlocksize\tKernel-CUDA\tKernel-OCL\tBW-CUDA\tBW-OCL"
-for cipher in $ENC_CIPHERS; do 
-	for file in sample.in.*; do 
+for cipher in $ENC_CIPHERS; do
+	for file in sample.in.*; do
 		BUFSIZE=`ls -l $file|awk {'print $5'}`
 		openssl enc -engine cudamrg -e -$cipher -nosalt -iv "FFFF" -nopad -v -in $file -out /dev/null -bufsize $BUFSIZE -K $KEY 2>/dev/null|grep secs|grep "CUDA"
 		openssl enc -engine opencl -e -$cipher -nosalt -iv "FFFF" -nopad -v -in $file -out /dev/null -bufsize $BUFSIZE -K $KEY 2>/dev/null|grep secs|grep "OpenCL"
@@ -24,8 +24,8 @@ done
 
 echo "DECRYPTION\n============="
 echo "Cipher\tBlocksize\tKernel-CUDA\tKernel-OCL\tBW-CUDA\tBW-OCL"
-for cipher in $DEC_CIPHERS; do 
-	for file in sample.in.*; do 
+for cipher in $DEC_CIPHERS; do
+	for file in sample.in.*; do
 		BUFSIZE=`ls -l $file|awk {'print $5'}`
 		openssl enc -engine cudamrg -d -$cipher -nosalt -iv "FFFF" -nopad -v -in $file -out /dev/null -bufsize $BUFSIZE -K $KEY 2>/dev/null|grep secs|grep "CUDA"
 		openssl enc -engine opencl -d -$cipher -nosalt -iv "FFFF" -nopad -v -in $file -out /dev/null -bufsize $BUFSIZE -K $KEY 2>/dev/null|grep secs|grep "OpenCL"
