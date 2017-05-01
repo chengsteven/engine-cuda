@@ -29,3 +29,8 @@ teststate
 *.o
 *.so
 *.dylib
+
+*~
+test/*.enc
+sample.in.*
+data
