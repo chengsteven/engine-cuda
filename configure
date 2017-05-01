@@ -2900,6 +2900,7 @@ if test $(uname -s) = "Darwin"
     LIBNAME="libcudamrg.dylib"
     LIBNAME_OPENCL="libopencl.dylib"
   else
+    LDFLAGS="$LDFLAGS -lstdc++"
     LIBNAME="libcudamrg.so"
     LIBNAME_OPENCL="libopencl.so"
 fi
