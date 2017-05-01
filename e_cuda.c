@@ -217,19 +217,20 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    break;
 	  case NID_idea_ecb:
 	  case NID_idea_cbc:
-	    if (!quiet && verbose) fprintf(stdout,"Start calculating IDEA key schedule...\n");
-	    {
-	    IDEA_KEY_SCHEDULE idea_key_schedule, idea_dec_key_schedule;
-	    idea_set_encrypt_key(key,&idea_key_schedule);
-	    if(!(ctx->encrypt)) {
-	      idea_set_decrypt_key(&idea_key_schedule,&idea_dec_key_schedule);
-	      IDEA_cuda_transfer_key_schedule(&idea_dec_key_schedule);
-	    } else {
-	      IDEA_cuda_transfer_key_schedule(&idea_key_schedule);
-	    }
-	    }
-	    if(iv)
-		IDEA_cuda_transfer_iv(iv);
+        fprintf(stderr,"IDEA not installed\n");
+	    /* if (!quiet && verbose) fprintf(stdout,"Start calculating IDEA key schedule...\n"); */
+	    /* { */
+	    /* IDEA_KEY_SCHEDULE idea_key_schedule, idea_dec_key_schedule; */
+	    /* idea_set_encrypt_key(key,&idea_key_schedule); */
+	    /* if(!(ctx->encrypt)) { */
+	    /*   idea_set_decrypt_key(&idea_key_schedule,&idea_dec_key_schedule); */
+	    /*   IDEA_cuda_transfer_key_schedule(&idea_dec_key_schedule); */
+	    /* } else { */
+	    /*   IDEA_cuda_transfer_key_schedule(&idea_key_schedule); */
+	    /* } */
+	    /* } */
+	    /* if(iv) */
+		/* IDEA_cuda_transfer_iv(iv); */
 	    break;
 	  case NID_aes_128_ecb:
 	  case NID_aes_128_cbc:
