@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Engine_cudamrg.  If not, see <http://www.gnu.org/licenses/>.
 #
-OPENSSL=$HOME/local/bin/openssl
+OPENSSL=/usr/local/ssl/bin/openssl
 RUN=17
 OPT=''
 # OPT='-elapsed' ## measure time in real time instead of CPU user time.
