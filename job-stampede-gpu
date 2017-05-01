@@ -1,0 +1,8 @@
+#!/bin/bash
+#SBATCH -A TG-CCR140008
+#SBATCH -J aes-gpu
+#SBATCH -o aes-gpu.stdout
+#SBATCH -n 1
+#SBATCH -p gpu
+#SBATCH -t 00:05:00
+ibrun $HOME/engine-cuda/test-file/test-file.sh
