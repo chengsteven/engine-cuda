@@ -8,7 +8,7 @@ DEC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
 # IV="0A00"
 IV="ABCDEFABCDEF"
 BUFSIZE=8388608
-OPENSSL=/usr/local/ssl/bin/openssl
+OPENSSL=$HOME/local/bin/openssl
 # TODO: Use getopt or zparseopts
 
 KEY="A10101F10101F1F1"
