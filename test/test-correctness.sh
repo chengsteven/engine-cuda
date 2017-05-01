@@ -8,7 +8,7 @@ DEC_CIPHERS=(aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256
 
 IV="FFFF"
 BUFSIZE=8388608
-OPENSSL=/usr/local/ssl/bin/openssl
+OPENSSL=$HOME/local/bin/openssl
 # TODO: Use getopt or zparseopts
 
 if [[ $ARGC -le 1 ]]; then

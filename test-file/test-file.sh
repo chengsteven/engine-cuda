@@ -2,29 +2,31 @@
 #
 # @version 0.1.0 (2010)
 # @author Paolo Margara <paolo.margara@gmail.com>
-# 
+#
 # Copyright 2010 Paolo Margara
 #
-# This file is part of Engine_cudamrg.
+# This file is part of Engine_$CUDAMRG.
 #
-# Engine_cudamrg is free software: you can redistribute it and/or modify
+# Engine_$CUDAMRG is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License or
 # any later version.
-# 
-# Engine_cudamrg is distributed in the hope that it will be useful,
+#
+# Engine_$CUDAMRG is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Engine_cudamrg.  If not, see <http://www.gnu.org/licenses/>.
+# along with Engine_$CUDAMRG.  If not, see <http://www.gnu.org/licenses/>.
 #
-OPENSSL=/opt/bin/openssl
-INPUT_FILE='AirForceOne.avi'
-OUTPUT_FILE='AirForceOne.avi'
-INPUT_DIR=$HOME/Scrivania
+OPENSSL=$HOME/local/bin/openssl
+INPUT_FILE='test'
+OUTPUT_FILE='test'
+INPUT_DIR=$HOME/test
 OUTPUT_DIR='./test-file-'$(date +%d-%m-%Y_%R)
+# CUDAMRG='dynamic -pre SO_PATH:$HOME/lib/engines/libcudamrg.so -pre ID:cudamrg'
+CUDAMRG='cudamrg'
 IV='42ec8f3a1806b0b7a35821d3a2481291c5bb41bcc2127f00c2f3bd73b15ac94c'
 KEY='8ec598172dcad6bcc07e61d54751ee2f10773bf301907603bec44e8374f17836'
 BUFSIZE=8192
@@ -35,12 +37,12 @@ mkdir -p $OUTPUT_DIR
 #
 # Encrypt with the GPU
 #
-$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-128-cbc-$OUTPUT_FILE -k $KEY -aes-128-cbc -e -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-128-ecb-$OUTPUT_FILE -k $KEY -aes-128-ecb -e -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-192-cbc-$OUTPUT_FILE -k $KEY -aes-192-cbc -e -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-192-ecb-$OUTPUT_FILE -k $KEY -aes-192-ecb -e -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-256-cbc-$OUTPUT_FILE -k $KEY -aes-256-cbc -e -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-256-ecb-$OUTPUT_FILE -k $KEY -aes-256-ecb -e -engine cudamrg -bufsize $BUFSIZE
+$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-128-cbc-$OUTPUT_FILE -k $KEY -aes-128-cbc -e -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-128-ecb-$OUTPUT_FILE -k $KEY -aes-128-ecb -e -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-192-cbc-$OUTPUT_FILE -k $KEY -aes-192-cbc -e -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-192-ecb-$OUTPUT_FILE -k $KEY -aes-192-ecb -e -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-256-cbc-$OUTPUT_FILE -k $KEY -aes-256-cbc -e -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-gpu-aes-256-ecb-$OUTPUT_FILE -k $KEY -aes-256-ecb -e -engine $CUDAMRG -bufsize $BUFSIZE
 #
 # Encrypt with the CPU
 #
@@ -53,12 +55,12 @@ $OPENSSL enc -in $INPUT_DIR/$INPUT_FILE -out $OUTPUT_DIR/crypt-cpu-aes-256-ecb-$
 #
 # Dencrypt file encrypted with the GPU with the GPU
 #
-$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-128-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-128-cbc-$OUTPUT_FILE -k $KEY -aes-128-cbc -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-128-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-128-ecb-$OUTPUT_FILE -k $KEY -aes-128-ecb -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-192-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-192-cbc-$OUTPUT_FILE -k $KEY -aes-192-cbc -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-192-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-192-ecb-$OUTPUT_FILE -k $KEY -aes-192-ecb -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-256-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-256-cbc-$OUTPUT_FILE -k $KEY -aes-256-cbc -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-256-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-256-ecb-$OUTPUT_FILE -k $KEY -aes-256-ecb -d -engine cudamrg -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-128-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-128-cbc-$OUTPUT_FILE -k $KEY -aes-128-cbc -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-128-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-128-ecb-$OUTPUT_FILE -k $KEY -aes-128-ecb -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-192-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-192-cbc-$OUTPUT_FILE -k $KEY -aes-192-cbc -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-192-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-192-ecb-$OUTPUT_FILE -k $KEY -aes-192-ecb -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-256-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-256-cbc-$OUTPUT_FILE -k $KEY -aes-256-cbc -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-256-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-gpu2gpu-aes-256-ecb-$OUTPUT_FILE -k $KEY -aes-256-ecb -d -engine $CUDAMRG -bufsize $BUFSIZE
 #
 # Dencrypt file encrypted with the GPU with the CPU
 #
@@ -71,12 +73,12 @@ $OPENSSL enc -in $OUTPUT_DIR/crypt-gpu-aes-256-ecb-$OUTPUT_FILE -out $OUTPUT_DIR
 #
 # Dencrypt file encrypted with the CPU with the GPU
 #
-$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-128-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-128-cbc-$OUTPUT_FILE -k $KEY -aes-128-cbc -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-128-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-128-ecb-$OUTPUT_FILE -k $KEY -aes-128-ecb -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-192-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-192-cbc-$OUTPUT_FILE -k $KEY -aes-192-cbc -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-192-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-192-ecb-$OUTPUT_FILE -k $KEY -aes-192-ecb -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-256-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-256-cbc-$OUTPUT_FILE -k $KEY -aes-256-cbc -d -engine cudamrg -bufsize $BUFSIZE
-$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-256-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-256-ecb-$OUTPUT_FILE -k $KEY -aes-256-ecb -d -engine cudamrg -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-128-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-128-cbc-$OUTPUT_FILE -k $KEY -aes-128-cbc -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-128-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-128-ecb-$OUTPUT_FILE -k $KEY -aes-128-ecb -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-192-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-192-cbc-$OUTPUT_FILE -k $KEY -aes-192-cbc -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-192-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-192-ecb-$OUTPUT_FILE -k $KEY -aes-192-ecb -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-256-cbc-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-256-cbc-$OUTPUT_FILE -k $KEY -aes-256-cbc -d -engine $CUDAMRG -bufsize $BUFSIZE
+$OPENSSL enc -in $OUTPUT_DIR/crypt-cpu-aes-256-ecb-$OUTPUT_FILE -out $OUTPUT_DIR/plain-cpu2gpu-aes-256-ecb-$OUTPUT_FILE -k $KEY -aes-256-ecb -d -engine $CUDAMRG -bufsize $BUFSIZE
 #
 # Dencrypt file encrypted with the CPU with the CPU
 #
