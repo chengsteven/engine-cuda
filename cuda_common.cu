@@ -2,7 +2,7 @@
 /**
  * @version 0.1.3 (2011)
  * @author Johannes Gilger <heipei@hackvalue.de>
- * 
+ *
  * Copyright 2011 Johannes Gilger
  *
  * This file is part of engine-cuda
@@ -11,7 +11,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License or
  * any later version.
- * 
+ *
  * engine-cuda is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -112,19 +112,19 @@ void checkCUDADevice(struct cudaDeviceProp *deviceProp, int output_verbosity) {
 	_CUDA(cudaGetDeviceCount(&deviceCount));
 
 	if (!deviceCount) {
-		if (output_verbosity!=OUTPUT_QUIET) 
+		if (output_verbosity!=OUTPUT_QUIET)
 			fprintf(stderr,"There is no device supporting CUDA.\n");
 		exit(EXIT_FAILURE);
 	}
 
-	if (output_verbosity>=OUTPUT_NORMAL) 
+	if (output_verbosity>=OUTPUT_NORMAL)
 		fprintf(stdout,"Successfully found %d CUDA devices (CUDART_VERSION %d).\n",deviceCount, CUDART_VERSION);
 
-	_CUDA(cudaSetDevice(6));
-	_CUDA(cudaGetDeviceProperties(deviceProp, 6));
-	
+	_CUDA(cudaSetDevice(0));
+	_CUDA(cudaGetDeviceProperties(deviceProp, 0));
+
 	if (output_verbosity==OUTPUT_VERBOSE) {
-        	fprintf(stdout,"\nDevice %d: \"%s\"\n", 6, deviceProp->name);
+        	fprintf(stdout,"\nDevice %d: \"%s\"\n", 0, deviceProp->name);
       	 	fprintf(stdout,"  CUDA Compute Capability:                       %d.%d\n", deviceProp->major,deviceProp->minor);
 #if CUDART_VERSION >= 2000
         	fprintf(stdout,"  Number of multiprocessors (SM):                %d\n", deviceProp->multiProcessorCount);
@@ -141,12 +141,12 @@ extern "C" void cuda_device_init(int *nm, int buffer_size, int output_verbosity,
 	assert(nm);
 	cudaError_t cudaerrno;
 	cudaDeviceProp deviceProp;
-    	
+
 	checkCUDADevice(&deviceProp, output_verbosity);
-	
+
 	if(buffer_size==0)
 		buffer_size=MAX_CHUNK_SIZE;
-	
+
 	//_CUDA(cudaSetDeviceFlags(cudaDeviceScheduleYield));
 	//_CUDA(cudaSetDeviceFlags(cudaDeviceScheduleSpin));
 	//_CUDA(cudaSetDeviceFlags(cudaDeviceBlockingSync));
@@ -155,7 +155,7 @@ extern "C" void cuda_device_init(int *nm, int buffer_size, int output_verbosity,
 	*nm=deviceProp.multiProcessorCount;
 #endif
 
-#ifndef PAGEABLE 
+#ifndef PAGEABLE
 #if CUDART_VERSION >= 2020
 	isIntegrated=deviceProp.integrated;
 	if(isIntegrated) {
@@ -207,24 +207,24 @@ extern "C" void cuda_device_finish(uint8_t *host_data, uint64_t *device_data) {
 
 	if (output_verbosity>=OUTPUT_NORMAL) fprintf(stdout, "\nDone. Finishing up...\n");
 
-#ifndef PAGEABLE 
+#ifndef PAGEABLE
 #if CUDART_VERSION >= 2020
 	if(isIntegrated) {
 		_CUDA(cudaFreeHost(host_data));
 	} else {
 		_CUDA(cudaFree(device_data));
 	}
-#else	
+#else
 	_CUDA(cudaFree(device_data));
 #endif
 #else
 	_CUDA(cudaFree(device_data));
-#endif	
+#endif
 
 	if(output_verbosity>=OUTPUT_NORMAL) {
 		_CUDA(cudaEventRecord(time_stop,0));
 		_CUDA(cudaEventSynchronize(time_stop));
 		_CUDA(cudaEventElapsedTime(&time_elapsed,time_start,time_stop));
-		fprintf(stdout,"\nTotal time: %f milliseconds\n",time_elapsed);	
+		fprintf(stdout,"\nTotal time: %f milliseconds\n",time_elapsed);
 	}
 }
