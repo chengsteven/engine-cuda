@@ -26,54 +26,7 @@ OPT=''
 # OPT='-elapsed' ## measure time in real time instead of CPU user time.
 OUTPUT_DIR='./test-speed-'$(date +%d-%m-%Y_%R)
 
-mkdir -p $OUTPUT_DIR
-mkdir -p data
 
-for cipher in aes-128-ctr aes-192-ctr aes-256-ctr
-    #aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
-	do
-	$OPENSSL speed $OPT -engine cudamrg -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher.txt
-	for i in $(seq 1 $RUN)
-		do
-		row=$(cat ./data/out-filtered-$cipher.txt |cut -f $i -d :)
-		echo $row >> ./data/$cipher.dat
-		done
-	rm ./data/out-filtered-$cipher.txt
-	done
-
-for cipher in aes-128-ctr aes-192-ctr aes-256-ctr #aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
-	do
-	$OPENSSL speed $OPT -engine cudamrg -decrypt -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher-decrypt.txt
-	for i in $(seq 1 $RUN)
-		do
-		row=$(cat ./data/out-filtered-$cipher-decrypt.txt |cut -f $i -d :)
-		echo $row >> ./data/$cipher-decrypt.dat
-		done
-	rm ./data/out-filtered-$cipher-decrypt.txt
-	done
-
-# for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
-# 	do
-# 	$OPENSSL speed $OPT -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher.txt
-# 	for i in $(seq 1 $RUN)
-# 		do
-# 		row=$(cat ./data/out-filtered-$cipher.txt |cut -f $i -d :)
-# 		echo $row >> ./data/$cipher-cpu.dat
-# 		done
-# 	# rm ./data/out-filtered-$cipher.txt
-# 	done
-#
-# for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
-# 	do
-# 	$OPENSSL speed $OPT -decrypt -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher-decrypt.txt
-# 	for i in $(seq 1 $RUN)
-# 		do
-# 		row=$(cat ./data/out-filtered-$cipher-decrypt.txt |cut -f $i -d :)
-# 		echo $row >> ./data/$cipher-decrypt-cpu.dat
-# 		done
-# 	# rm ./data/out-filtered-$cipher-decrypt.txt
-# 	done
-#
 ./aes-ecb-encrypt.plt > aes-ecb-encrypt.png
 ./aes-cbc-encrypt.plt > aes-cbc-encrypt.png
 ./aes-ctr-encrypt.plt > aes-ctr-encrypt.png
@@ -280,6 +233,6 @@ echo ' ' >> table.wiki
 #
 # MAKE TABLE SPEED - END
 #
-mv *.png $OUTPUT_DIR
-mv table* $OUTPUT_DIR
-mv data $OUTPUT_DIR
+# mv *.png $OUTPUT_DIR
+# mv table* $OUTPUT_DIR
+# mv data $OUTPUT_DIR

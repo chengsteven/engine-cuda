@@ -20,7 +20,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Engine_cudamrg.  If not, see <http://www.gnu.org/licenses/>.
 #
+OUTPUT_DIR='./test-enc-'$(date +%d-%m-%Y_%R)
 ./aes-ecb-encrypt.plt > aes-ecb-encrypt.png
 ./aes-cbc-encrypt.plt > aes-cbc-encrypt.png
+./aes-ctr-encrypt.plt > aes-ctr-encrypt.png
 ./aes-ecb-decrypt.plt > aes-ecb-decrypt.png
 ./aes-cbc-decrypt.plt > aes-cbc-decrypt.png
+./aes-ctr-decrypt.plt > aes-ctr-decrypt.png
+mkdir $OUTPUT_DIR
+mv *.dat $OUTPUT_DIR
+mv *.png $OUTPUT_DIR

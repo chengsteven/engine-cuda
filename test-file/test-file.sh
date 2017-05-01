@@ -20,10 +20,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Engine_cudamrg.  If not, see <http://www.gnu.org/licenses/>.
 #
-OPENSSL=/opt/bin/openssl
-INPUT_FILE='AirForceOne.avi'
-OUTPUT_FILE='AirForceOne.avi'
-INPUT_DIR=$HOME/Scrivania
+OPENSSL=usr/local/ssl/bin/openssl
+INPUT_FILE='test'
+OUTPUT_FILE='test'
+INPUT_DIR=$HOME/test
 OUTPUT_DIR='./test-file-'$(date +%d-%m-%Y_%R)
 IV='42ec8f3a1806b0b7a35821d3a2481291c5bb41bcc2127f00c2f3bd73b15ac94c'
 KEY='8ec598172dcad6bcc07e61d54751ee2f10773bf301907603bec44e8374f17836'
