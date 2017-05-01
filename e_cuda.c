@@ -1,7 +1,7 @@
 /**
  * @version 0.1.3 (2011)
  * @author Paolo Margara <paolo.margara@gmail.com>
- * 
+ *
  * Copyright 2011 Paolo Margara
  *
  * This file is part of engine-cuda.
@@ -10,7 +10,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License or
  * any later version.
- * 
+ *
  * engine-cuda is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -80,7 +80,7 @@ int cuda_init(ENGINE * engine) {
 	int verbosity=OUTPUT_NORMAL;
 	if (quiet==1)
 		verbosity=OUTPUT_QUIET;
-	if(verbose) 
+	if(verbose)
 		verbosity=OUTPUT_VERBOSE;
 
 	cuda_device_init(&num_multiprocessors,buffer_size,verbosity,&host_data,&device_data_in,&device_data_out);
@@ -105,7 +105,7 @@ static int cuda_engine_ctrl(ENGINE * e, int cmd, long i, void *p, void (*f) ()) 
 			return 1;
 		} else return 0;
 	case CMD_QUIET:
-		if (initialized) { 
+		if (initialized) {
 			if (!quiet) fprintf(stderr,"Error: you cannot set command %d when the engine is already initialized.",cmd);
 			return 0;
 		} else return inc_quiet();
@@ -217,19 +217,20 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    break;
 	  case NID_idea_ecb:
 	  case NID_idea_cbc:
-	    if (!quiet && verbose) fprintf(stdout,"Start calculating IDEA key schedule...\n");
-	    {
-	    IDEA_KEY_SCHEDULE idea_key_schedule, idea_dec_key_schedule;
-	    idea_set_encrypt_key(key,&idea_key_schedule);
-	    if(!(ctx->encrypt)) {
-	      idea_set_decrypt_key(&idea_key_schedule,&idea_dec_key_schedule);
-	      IDEA_cuda_transfer_key_schedule(&idea_dec_key_schedule);
-	    } else {
-	      IDEA_cuda_transfer_key_schedule(&idea_key_schedule);
-	    }
-	    }
-	    if(iv)
-		IDEA_cuda_transfer_iv(iv);
+        fprintf(stderr,"IDEA not installed\n");
+	    /* if (!quiet && verbose) fprintf(stdout,"Start calculating IDEA key schedule...\n"); */
+	    /* { */
+	    /* IDEA_KEY_SCHEDULE idea_key_schedule, idea_dec_key_schedule; */
+	    /* idea_set_encrypt_key(key,&idea_key_schedule); */
+	    /* if(!(ctx->encrypt)) { */
+	    /*   idea_set_decrypt_key(&idea_key_schedule,&idea_dec_key_schedule); */
+	    /*   IDEA_cuda_transfer_key_schedule(&idea_dec_key_schedule); */
+	    /* } else { */
+	    /*   IDEA_cuda_transfer_key_schedule(&idea_key_schedule); */
+	    /* } */
+	    /* } */
+	    /* if(iv) */
+		/* IDEA_cuda_transfer_iv(iv); */
 	    break;
 	  case NID_aes_128_ecb:
 	  case NID_aes_128_cbc:
