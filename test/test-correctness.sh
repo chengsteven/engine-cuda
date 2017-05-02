@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 
-ENC_CIPHERS=(aes-128-ecb aes-192-ecb aes-256-ecb aes-128-ctr aes-192-ctr aes-256-ctr)
+ENC_CIPHERS=(aes-128-ecb aes-128-ctr)
 DEC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
 # ENC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
 # DEC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
@@ -11,7 +11,7 @@ DEC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
 #DEC_CIPHERS=(camellia-128-cbc)
 
 # IV="FFFF"
-IV="ABCD"
+IV="ABCDEFABCDEF"
 BUFSIZE=8388608
 OPENSSL=/usr/local/ssl/bin/openssl
 # TODO: Use getopt or zparseopts
@@ -56,6 +56,7 @@ fi
 
 for cipher in $ENC_CIPHERS; do
 	echo "\n==== $cipher ENCRYPTION tests ===="
+	echo "\n==== $cipher ENCRYPTION tests ====" 1>> correctness.log 2>> correctness.log
 	echo ">> CUDA encryption" 1>> correctness.log 2>> correctness.log
 	echo "---------------" 1>> correctness.log 2>> correctness.log
 	time $OPENSSL enc -engine cudamrg -e -$cipher -nosalt -v -in $2 -out $cipher.out.cuda -bufsize $BUFSIZE -K "$KEY" -iv "$IV" 1>> correctness.log 2>> correctness.log
@@ -79,8 +80,8 @@ for cipher in $ENC_CIPHERS; do
 	else
 		echo ">> CKSUM matches"
 		# rm -rf $cipher.out.cuda $cipher.out.cpu
+        rm correctness.log
 	fi
-	rm correctness.log
 done
 
 for cipher in $DEC_CIPHERS; do
@@ -99,9 +100,9 @@ for cipher in $DEC_CIPHERS; do
 	CHKCUDA=`cksum $cipher.out.cuda|awk {'print $1'}`
 
 	echo ""
-    cat correctness.log
+    # cat correctness.log
 	if [[ $CHKCPU != $CHKCUDA ]]; then
-		cat correctness.log
+		# cat correctness.log
 		echo ">> CAUTION: cksum mismatch!"
 		echo ">> CPU: $CHKCPU; CUDA: $CHKCUDA; "
 		echo ">> Encrypted file:"
@@ -113,6 +114,6 @@ for cipher in $DEC_CIPHERS; do
 	else
 		echo ">> $cipher CKSUM matches"
 		rm -rf $cipher.out.cuda $cipher.out.cpu $cipher.enc
+        rm correctness.log
 	fi
-	rm correctness.log
 done

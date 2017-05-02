@@ -6,7 +6,7 @@ DEC_CIPHERS=(aes-128-cbc aes-128-cbc aes-128-cbc)
 
 # IV="FFFF"
 # IV="0A00"
-IV="ABCD"
+IV="ABCDEFABCDEF"
 BUFSIZE=8388608
 OPENSSL=/usr/local/ssl/bin/openssl
 # TODO: Use getopt or zparseopts
