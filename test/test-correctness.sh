@@ -1,14 +1,19 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 
-ENC_CIPHERS=(aes-128-ecb aes-192-ecb aes-256-ecb)
-DEC_CIPHERS=(aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc)
+ENC_CIPHERS=(aes-128-ecb aes-128-ctr)
+DEC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
+# ENC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
+# DEC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
+# ENC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
+# DEC_CIPHERS=(aes-128-cbc aes-192-cbc aes-256-cbc)
 #DEC_CIPHERS=(camellia-128-cbc des-cbc bf-cbc aes-128-cbc)
 #DEC_CIPHERS=(camellia-128-cbc)
 
-IV="FFFF"
+# IV="FFFF"
+IV="ABCDEFABCDEF"
 BUFSIZE=8388608
-OPENSSL=$HOME/local/bin/openssl
+OPENSSL=/usr/local/ssl/bin/openssl
 # TODO: Use getopt or zparseopts
 
 if [[ $ARGC -le 1 ]]; then
@@ -27,6 +32,8 @@ if [[ -n $3 ]]; then
 fi
 
 make -s -j5 -C ..
+
+rm correctness.log
 
 if [[ $1 == "enc" ]]; then
 	DEC_CIPHERS=();
@@ -49,17 +56,19 @@ fi
 
 for cipher in $ENC_CIPHERS; do
 	echo "\n==== $cipher ENCRYPTION tests ===="
+	echo "\n==== $cipher ENCRYPTION tests ====" 1>> correctness.log 2>> correctness.log
 	echo ">> CUDA encryption" 1>> correctness.log 2>> correctness.log
 	echo "---------------" 1>> correctness.log 2>> correctness.log
-	time $OPENSSL enc -engine cudamrg -e -$cipher -nosalt -v -in $2 -out $cipher.out.cuda -bufsize $BUFSIZE -K "$KEY" 1>> correctness.log 2>> correctness.log
+	time $OPENSSL enc -engine cudamrg -e -$cipher -nosalt -v -in $2 -out $cipher.out.cuda -bufsize $BUFSIZE -K "$KEY" -iv "$IV" 1>> correctness.log 2>> correctness.log
 	echo -e "\n>> CPU encryption" 1>> correctness.log 2>> correctness.log
 	echo "--------------" 1>> correctness.log 2>> correctness.log
-	time $OPENSSL enc -e -$cipher -nosalt -v -in $2 -out $cipher.out.cpu -K "$KEY" 1>> correctness.log 2>> correctness.log
+	time $OPENSSL enc -e -$cipher -nosalt -v -in $2 -out $cipher.out.cpu -K "$KEY" -iv $IV 1>> correctness.log 2>> correctness.log
 
 	CHKCPU=`cksum $cipher.out.cpu|awk {'print $1'}`
 	CHKCUDA=`cksum $cipher.out.cuda|awk {'print $1'}`
 
 	echo ""
+    # cat correctness.log
 	if [[ $CHKCPU != $CHKCUDA ]]; then
 		cat correctness.log
 		echo ">> CAUTION: cksum mismatch!"
@@ -70,9 +79,9 @@ for cipher in $ENC_CIPHERS; do
 		xxd $cipher.out.cuda|head -n 5
 	else
 		echo ">> CKSUM matches"
-		rm -rf $cipher.out.cuda $cipher.out.cpu
+		# rm -rf $cipher.out.cuda $cipher.out.cpu
+        rm correctness.log
 	fi
-	rm correctness.log
 done
 
 for cipher in $DEC_CIPHERS; do
@@ -91,8 +100,9 @@ for cipher in $DEC_CIPHERS; do
 	CHKCUDA=`cksum $cipher.out.cuda|awk {'print $1'}`
 
 	echo ""
+    # cat correctness.log
 	if [[ $CHKCPU != $CHKCUDA ]]; then
-		cat correctness.log
+		# cat correctness.log
 		echo ">> CAUTION: cksum mismatch!"
 		echo ">> CPU: $CHKCPU; CUDA: $CHKCUDA; "
 		echo ">> Encrypted file:"
@@ -104,6 +114,6 @@ for cipher in $DEC_CIPHERS; do
 	else
 		echo ">> $cipher CKSUM matches"
 		rm -rf $cipher.out.cuda $cipher.out.cpu $cipher.enc
+        rm correctness.log
 	fi
-	rm correctness.log
 done
