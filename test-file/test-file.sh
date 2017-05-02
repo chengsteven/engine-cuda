@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Engine_$CUDAMRG.  If not, see <http://www.gnu.org/licenses/>.
 #
-OPENSSL=usr/local/ssl/bin/openssl
+OPENSSL=$HOME/local/bin/openssl
 INPUT_FILE='test'
 OUTPUT_FILE='test'
 INPUT_DIR=$HOME/test
