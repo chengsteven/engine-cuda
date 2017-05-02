@@ -103,7 +103,7 @@ set nox2tics
 set noy2tics
 set cbtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set cbtics autofreq
-set title "Decryption performance with AES CBC"
+set title "Encryption performance with AES CTR"
 set title  offset character 0, 0, 0 font "" norotate
 set timestamp bottom
 set timestamp ""
@@ -112,13 +112,13 @@ set rrange [ * : * ] noreverse nowriteback  # (currently [0.00000:10.0000] )
 set trange [ * : * ] noreverse nowriteback  # (currently [-5.00000:5.00000] )
 set urange [ * : * ] noreverse nowriteback  # (currently [-5.00000:5.00000] )
 set vrange [ * : * ] noreverse nowriteback  # (currently [-5.00000:5.00000] )
-set xlabel "Decryption block size [bytes]"
+set xlabel "Encryption block size [bytes]"
 set xlabel  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 set xrange [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
 set x2range [ * : * ] noreverse nowriteback  # (currently [-10.0000:10.0000] )
-set ylabel "Decryption speed [bytes/seconds]"
+set ylabel "Encryption speed [bytes/seconds]"
 set ylabel  offset character 0, 0, 0 font "" textcolor lt -1 rotate by 90
 set y2label ""
 set y2label  offset character 0, 0, 0 font "" textcolor lt -1 rotate by 90
@@ -148,5 +148,5 @@ set fontpath
 set fit noerrorvariables
 set terminal png size 1000,500
 GNUTERM = "wxt"
-plot './data/aes-128-cbc-decrypt.dat' using 2 title 'AES 128 CBC GPU' with linespoints,'./data/aes-192-cbc-decrypt.dat' using 2 title 'AES 192 CBC GPU' with linespoint,'./data/aes-256-cbc-decrypt.dat' using 2 title 'AES 256 CBC GPU' with linespoint, './data/aes-128-cbc-decrypt-cpu.dat' using 2 title 'AES 128 CBC CPU' with linespoints,'./data/aes-192-cbc-decrypt-cpu.dat' using 2 title 'AES 192 CBC CPU' with linespoint,'./data/aes-256-cbc-decrypt-cpu.dat' using 2 title 'AES 256 CBC CPU' with linespoint
+plot './data/aes-128-ctr.dat' using 2 title 'AES 128 CTR GPU' with linespoints,'./data/aes-192-ctr.dat' using 2 title 'AES 192 CTR GPU' with linespoint,'./data/aes-256-ctr.dat' using 2 title 'AES 256 CTR GPU' with linespoint, './data/aes-128-ctr-cpu.dat' using 2 title 'AES 128 CTR CPU' with linespoints,'./data/aes-192-ctr-cpu.dat' using 2 title 'AES 192 CTR CPU' with linespoint,'./data/aes-256-ctr-cpu.dat' using 2 title 'AES 256 CTR CPU' with linespoint
 #    EOF

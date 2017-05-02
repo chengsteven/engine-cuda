@@ -103,7 +103,7 @@ set nox2tics
 set noy2tics
 set cbtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set cbtics autofreq
-set title "Decryption performance with AES CBC"
+set title "Decryption performance with AES CTR"
 set title  offset character 0, 0, 0 font "" norotate
 set timestamp bottom
 set timestamp ""
@@ -148,5 +148,5 @@ set fontpath
 set fit noerrorvariables
 set terminal png size 1000,500
 GNUTERM = "wxt"
-plot './data/aes-128-cbc-decrypt.dat' using 2 title 'AES 128 CBC GPU' with linespoints,'./data/aes-192-cbc-decrypt.dat' using 2 title 'AES 192 CBC GPU' with linespoint,'./data/aes-256-cbc-decrypt.dat' using 2 title 'AES 256 CBC GPU' with linespoint, './data/aes-128-cbc-decrypt-cpu.dat' using 2 title 'AES 128 CBC CPU' with linespoints,'./data/aes-192-cbc-decrypt-cpu.dat' using 2 title 'AES 192 CBC CPU' with linespoint,'./data/aes-256-cbc-decrypt-cpu.dat' using 2 title 'AES 256 CBC CPU' with linespoint
+plot './data/aes-128-ctr-decrypt.dat' using 2 title 'AES 128 CTR GPU' with linespoints,'./data/aes-192-ctr-decrypt.dat' using 2 title 'AES 192 CTR GPU' with linespoint,'./data/aes-256-ctr-decrypt.dat' using 2 title 'AES 256 CTR GPU' with linespoint, './data/aes-128-ctr-decrypt-cpu.dat' using 2 title 'AES 128 CTR CPU' with linespoints,'./data/aes-192-ctr-decrypt-cpu.dat' using 2 title 'AES 192 CTR CPU' with linespoint,'./data/aes-256-ctr-decrypt-cpu.dat' using 2 title 'AES 256 CTR CPU' with linespoint
 #    EOF
