@@ -2,82 +2,82 @@
 <h1>AES ECB encryption performance</h1>
 <img src="./aes-ecb-encrypt.png" alt="aes-ecb-encrypt"/>
 <table><tr><th>blocksize</th><th>aes-128-ecb-gpu</th><th>aes-128-ecb-cpu</th><th>aes-192-ecb-gpu</th><th>aes-192-ecb-cpu</th><th>aes-256-ecb-gpu</th><th>aes-256-ecb-cpu</th></tr>
-<tr><th>16</th><td>570827.07</td><td>588660.08</td><td>593474.51</td><td></td><td>561222.81</td><td></td></tr>
-<tr><th>64</th><td>2259911.11</td><td>2299122.68</td><td>2353755.64</td><td></td><td>2227658.87</td><td></td></tr>
-<tr><th>256</th><td>8977381.55</td><td>9357187.88</td><td>9256901.15</td><td></td><td>8873768.42</td><td></td></tr>
-<tr><th>1024</th><td>37716669.26</td><td>36596770.26</td><td>36440048.48</td><td></td><td>36524127.63</td><td></td></tr>
-<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8192</th><td>274117158.21</td><td>292256000.00</td><td>289096006.37</td><td></td><td>266356590.26</td><td></td></tr>
-<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>16</th><td>591412.73</td><td></td><td>554810.49</td><td></td><td>564468.97</td><td></td></tr>
+<tr><th>64</th><td>2349299.63</td><td></td><td>2215454.68</td><td></td><td>2214424.06</td><td></td></tr>
+<tr><th>256</th><td>9413253.73</td><td></td><td>8899175.94</td><td></td><td>8921018.18</td><td></td></tr>
+<tr><th>1024</th><td>37853222.64</td><td></td><td>35347943.07</td><td></td><td>36514564.98</td><td></td></tr>
+<tr><th>2048</th><td>73638591.04</td><td></td><td>70459733.33</td><td></td><td>71675237.21</td><td></td></tr>
+<tr><th>4096</th><td>144101831.11</td><td></td><td>136672934.83</td><td></td><td>144959235.06</td><td></td></tr>
+<tr><th>8192</th><td>280191130.57</td><td></td><td>261470976.95</td><td></td><td>283113521.95</td><td></td></tr>
+<tr><th>16384</th><td>512825625.10</td><td></td><td>485064950.38</td><td></td><td>499146591.37</td><td></td></tr>
+<tr><th>32768</th><td>825036413.58</td><td></td><td>806214614.13</td><td></td><td>856450662.40</td><td></td></tr>
+<tr><th>65536</th><td>1239524072.73</td><td></td><td>1235553709.92</td><td></td><td>1239265438.76</td><td></td></tr>
+<tr><th>131072</th><td>1615437386.26</td><td></td><td>1624733965.89</td><td></td><td>1729986560.00</td><td></td></tr>
+<tr><th>262144</th><td>1877354338.46</td><td></td><td>1888864821.79</td><td></td><td>1937636845.34</td><td></td></tr>
+<tr><th>524288</th><td>2084767244.09</td><td></td><td>2035135053.70</td><td></td><td>2196208966.81</td><td></td></tr>
+<tr><th>1048576</th><td>1802744123.08</td><td></td><td>1781772603.08</td><td></td><td>1889162851.03</td><td></td></tr>
+<tr><th>2097152</th><td>1562716490.32</td><td></td><td>1573629383.94</td><td></td><td>1569779952.94</td><td></td></tr>
+<tr><th>4194304</th><td>1738060710.18</td><td></td><td>1719073892.96</td><td></td><td>1739580040.29</td><td></td></tr>
+<tr><th>8388608</th><td>1837366388.93</td><td></td><td>1823864596.52</td><td></td><td>1809710187.41</td><td></td></tr>
 </table>
 <p>The "numbers" in the column "blocksize" are in bytes.</p>
 <p>All other "numbers" are in bytes per second processed.</p>
 <h1>AES ECB decryption performance</h1>
 <img src="./aes-ecb-decrypt.png" alt="aes-ecb-decrypt"/>
 <table><tr><th>blocksize</th><th>aes-128-ecb-gpu</th><th>aes-128-ecb-cpu</th><th>aes-192-ecb-gpu</th><th>aes-192-ecb-cpu</th><th>aes-256-ecb-gpu</th><th>aes-256-ecb-cpu</th></tr>
-<tr><th>16</th><td>608606.90</td><td></td><td>566947.21</td><td></td><td>539387.17</td><td></td></tr>
-<tr><th>64</th><td>2390303.76</td><td></td><td>2289972.93</td><td></td><td>2156220.38</td><td></td></tr>
-<tr><th>256</th><td>9516584.27</td><td></td><td>9039464.68</td><td></td><td>8642812.12</td><td></td></tr>
-<tr><th>1024</th><td>37330109.63</td><td></td><td>37877600.00</td><td></td><td>35006962.16</td><td></td></tr>
-<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8192</th><td>286874566.04</td><td></td><td>275119268.91</td><td></td><td>257250197.01</td><td></td></tr>
-<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>16</th><td>584865.19</td><td></td><td>586409.13</td><td></td><td></td><td></td></tr>
+<tr><th>64</th><td>2318070.59</td><td></td><td>2331903.03</td><td></td><td></td><td></td></tr>
+<tr><th>256</th><td>9391283.58</td><td></td><td>9163940.30</td><td></td><td></td><td></td></tr>
+<tr><th>1024</th><td>39141600.00</td><td></td><td>36445611.94</td><td></td><td></td><td></td></tr>
+<tr><th>2048</th><td>74112287.64</td><td></td><td>74533021.54</td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td>144053285.93</td><td></td><td>141752167.16</td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>280438436.23</td><td></td><td>270960297.40</td><td></td><td></td><td></td></tr>
+<tr><th>16384</th><td>501753886.57</td><td></td><td>491281576.12</td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td>847281557.74</td><td></td><td>885775627.31</td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td>1260982412.17</td><td></td><td>1248322697.32</td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td>1661464607.75</td><td></td><td>1617630129.23</td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td>1915283224.90</td><td></td><td>1874532812.40</td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td>2080358400.00</td><td></td><td>2062681096.06</td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td>1925527928.16</td><td></td><td>1757556363.64</td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td>1568729829.39</td><td></td><td>1542155702.86</td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td>1743947452.63</td><td></td><td>1720550760.56</td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td>1858938915.68</td><td></td><td>1823864596.52</td><td></td><td></td><td></td></tr>
 </table>
 <p>The "numbers" in the column "blocksize" are in bytes.</p>
 <p>All other "numbers" are in bytes per second processed.</p>
 <h1>AES CBC encryption performance</h1>
 <img src="./aes-cbc-encrypt.png" alt="aes-cbc-encrypt"/>
 <table><tr><th>blocksize</th><th>aes-128-cbc-gpu</th><th>aes-128-cbc-cpu</th><th>aes-192-cbc-gpu</th><th>aes-192-cbc-cpu</th><th>aes-256-cbc-gpu</th><th>aes-256-cbc-cpu</th></tr>
-<tr><th>16</th><td>1386514.29</td><td></td><td>1327657.54</td><td></td><td>1356341.22</td><td></td></tr>
-<tr><th>64</th><td>5443936.69</td><td></td><td>5340436.88</td><td></td><td>5342462.19</td><td></td></tr>
-<tr><th>256</th><td>21128653.52</td><td></td><td>21219748.57</td><td></td><td>21648942.55</td><td></td></tr>
-<tr><th>1024</th><td>82294264.79</td><td></td><td>83622765.71</td><td></td><td>83231157.30</td><td></td></tr>
-<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8192</th><td>589509870.68</td><td></td><td>581713920.00</td><td></td><td>598087641.06</td><td></td></tr>
-<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>16</th><td>1373400.72</td><td></td><td>1338722.30</td><td></td><td>1371865.23</td><td></td></tr>
+<tr><th>64</th><td>5623958.36</td><td></td><td>5344460.43</td><td></td><td>5547501.45</td><td></td></tr>
+<tr><th>256</th><td>22809600.00</td><td></td><td>20830557.75</td><td></td><td>21532766.08</td><td></td></tr>
+<tr><th>1024</th><td>86233553.11</td><td></td><td>84985552.59</td><td></td><td>85246715.41</td><td></td></tr>
+<tr><th>2048</th><td>168117198.51</td><td></td><td>168717331.32</td><td></td><td>163524811.35</td><td></td></tr>
+<tr><th>4096</th><td>335280709.73</td><td></td><td>321662150.57</td><td></td><td>307901130.25</td><td></td></tr>
+<tr><th>8192</th><td>565347388.24</td><td></td><td>556861819.26</td><td></td><td>580772763.91</td><td></td></tr>
+<tr><th>16384</th><td>957489816.22</td><td></td><td>927507513.96</td><td></td><td>920359152.94</td><td></td></tr>
+<tr><th>32768</th><td>1429252434.65</td><td></td><td>1378020430.77</td><td></td><td>1365538646.62</td><td></td></tr>
+<tr><th>65536</th><td>1925159960.98</td><td></td><td>1953107647.74</td><td></td><td>1787120083.90</td><td></td></tr>
+<tr><th>131072</th><td>2434186037.00</td><td></td><td>2369408882.76</td><td></td><td>2043127120.30</td><td></td></tr>
+<tr><th>262144</th><td>2440767309.54</td><td></td><td>2417765978.60</td><td></td><td>2348747576.10</td><td></td></tr>
+<tr><th>524288</th><td>2599851670.59</td><td></td><td>2598970514.29</td><td></td><td>2424832000.00</td><td></td></tr>
+<tr><th>1048576</th><td>2125903277.42</td><td></td><td>2142760793.50</td><td></td><td>1999840969.70</td><td></td></tr>
+<tr><th>2097152</th><td>1754744273.45</td><td></td><td>1740560450.54</td><td></td><td>1705881238.16</td><td></td></tr>
+<tr><th>4194304</th><td>1923241834.15</td><td></td><td>1928499916.08</td><td></td><td>1907029569.55</td><td></td></tr>
+<tr><th>8388608</th><td>2032734361.77</td><td></td><td>2033950158.90</td><td></td><td>2016109515.93</td><td></td></tr>
 </table>
 <p>The "numbers" in the column "blocksize" are in bytes.</p>
 <p>All other "numbers" are in bytes per second processed.</p>
 <h1>AES CBC decryption performance</h1>
 <img src="./aes-cbc-decrypt.png" alt="aes-cbc-decrypt"/>
 <table><tr><th>blocksize</th><th>aes-128-cbc-gpu</th><th>aes-128-cbc-cpu</th><th>aes-192-cbc-gpu</th><th>aes-192-cbc-cpu</th><th>aes-256-cbc-gpu</th><th>aes-256-cbc-cpu</th></tr>
-<tr><th>16</th><td>564115.99</td><td></td><td>552686.57</td><td></td><td>531127.27</td><td></td></tr>
-<tr><th>64</th><td>2258914.50</td><td></td><td>2216677.15</td><td></td><td>2096874.91</td><td></td></tr>
-<tr><th>256</th><td>8904436.36</td><td></td><td>8600533.33</td><td></td><td>8157834.22</td><td></td></tr>
-<tr><th>1024</th><td>34349638.95</td><td></td><td>33643266.92</td><td></td><td>31901719.54</td><td></td></tr>
+<tr><th>16</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>64</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>256</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1024</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8192</th><td>252151628.90</td><td></td><td>245564652.31</td><td></td><td>228781923.66</td><td></td></tr>
+<tr><th>8192</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -95,36 +95,36 @@
 <h1>AES CTR encryption performance</h1>
 <img src="./aes-ctr-encrypt.png" alt="aes-ctr-encrypt"/>
 <table><tr><th>blocksize</th><th>aes-128-ctr-gpu</th><th>aes-128-ctr-cpu</th><th>aes-192-ctr-gpu</th><th>aes-192-ctr-cpu</th><th>aes-256-ctr-gpu</th><th>aes-256-ctr-cpu</th></tr>
-<tr><th>16</th><td>435649360.54</td><td></td><td>380883210.67</td><td></td><td>339673696.00</td><td></td></tr>
-<tr><th>64</th><td>1360579776.00</td><td></td><td>1209927701.33</td><td></td><td>1119663133.11</td><td></td></tr>
-<tr><th>256</th><td>2889235712.00</td><td></td><td>2577656808.03</td><td></td><td>2270227029.33</td><td></td></tr>
-<tr><th>1024</th><td>3792032426.67</td><td></td><td>3152336213.33</td><td></td><td>2737451349.33</td><td></td></tr>
-<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8192</th><td>4167122450.84</td><td></td><td>3379317811.37</td><td></td><td>2913080679.60</td><td></td></tr>
-<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>16</th><td>388004655.52</td><td></td><td>382036569.90</td><td></td><td>334774886.96</td><td></td></tr>
+<tr><th>64</th><td>1325654442.67</td><td></td><td>1226566400.00</td><td></td><td>1106443584.00</td><td></td></tr>
+<tr><th>256</th><td>2913429418.67</td><td></td><td>2517380778.67</td><td></td><td>2241853952.00</td><td></td></tr>
+<tr><th>1024</th><td>3786352674.25</td><td></td><td>3163156890.97</td><td></td><td>2740312701.00</td><td></td></tr>
+<tr><th>2048</th><td>3973297493.33</td><td></td><td>3266278058.67</td><td></td><td>2837485568.00</td><td></td></tr>
+<tr><th>4096</th><td>4098080768.00</td><td></td><td>3337643349.33</td><td></td><td>2897802188.63</td><td></td></tr>
+<tr><th>8192</th><td>4134521514.67</td><td></td><td>3364795733.33</td><td></td><td>2912492413.42</td><td></td></tr>
+<tr><th>16384</th><td>4183942078.93</td><td></td><td>3398512845.48</td><td></td><td>2922408618.67</td><td></td></tr>
+<tr><th>32768</th><td>4184331605.33</td><td></td><td>3394207744.00</td><td></td><td>2939662212.71</td><td></td></tr>
+<tr><th>65536</th><td>4200158549.33</td><td></td><td>3401930069.33</td><td></td><td>2935248213.33</td><td></td></tr>
+<tr><th>131072</th><td>4223104770.57</td><td></td><td>3417603767.22</td><td></td><td>2946971997.32</td><td></td></tr>
+<tr><th>262144</th><td>4210906453.33</td><td></td><td>3407435093.33</td><td></td><td>2939595434.67</td><td></td></tr>
+<tr><th>524288</th><td>4205314048.00</td><td></td><td>3406648661.33</td><td></td><td>2938983765.33</td><td></td></tr>
+<tr><th>1048576</th><td>4206886912.00</td><td></td><td>3407172949.33</td><td></td><td>2948637795.32</td><td></td></tr>
+<tr><th>2097152</th><td>4218151213.38</td><td></td><td>3417165399.33</td><td></td><td>2938809002.67</td><td></td></tr>
+<tr><th>4194304</th><td>4195702101.33</td><td></td><td>3402978645.33</td><td></td><td>2936012800.00</td><td></td></tr>
+<tr><th>8388608</th><td>4197100202.67</td><td></td><td>3402978645.33</td><td></td><td>2945832240.80</td><td></td></tr>
 </table>
 <p>The "numbers" in the column "blocksize" are in bytes.</p>
 <p>All other "numbers" are in bytes per second processed.</p>
 <h1>AES CTR decryption performance</h1>
 <img src="./aes-ctr-decrypt.png" alt="aes-ctr-decrypt"/>
 <table><tr><th>blocksize</th><th>aes-128-ctr-gpu</th><th>aes-128-ctr-cpu</th><th>aes-192-ctr-gpu</th><th>aes-192-ctr-cpu</th><th>aes-256-ctr-gpu</th><th>aes-256-ctr-cpu</th></tr>
-<tr><th>16</th><td>383814640.00</td><td></td><td>342590057.53</td><td></td><td>290414257.53</td><td></td></tr>
-<tr><th>64</th><td>1248888832.00</td><td></td><td>1129473130.67</td><td></td><td>1013199368.56</td><td></td></tr>
-<tr><th>256</th><td>2881365361.87</td><td></td><td>2526549276.25</td><td></td><td>2158022121.74</td><td></td></tr>
-<tr><th>1024</th><td>3779213653.33</td><td></td><td>3141356885.33</td><td></td><td>2697979904.00</td><td></td></tr>
+<tr><th>16</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>64</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>256</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1024</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><th>8192</th><td>4144634177.93</td><td></td><td>3371460066.89</td><td></td><td>2905244853.51</td><td></td></tr>
+<tr><th>8192</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
