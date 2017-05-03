@@ -1,0 +1,140 @@
+<html><head><title>Engine_cudamrg Benchmark suite - Test Speed</title></head><body>
+<h1>AES ECB encryption performance</h1>
+<img src="./aes-ecb-encrypt.png" alt="aes-ecb-encrypt"/>
+<table><tr><th>blocksize</th><th>aes-128-ecb-gpu</th><th>aes-128-ecb-cpu</th><th>aes-192-ecb-gpu</th><th>aes-192-ecb-cpu</th><th>aes-256-ecb-gpu</th><th>aes-256-ecb-cpu</th></tr>
+<tr><th>16</th><td>570827.07</td><td>588660.08</td><td>593474.51</td><td></td><td>561222.81</td><td></td></tr>
+<tr><th>64</th><td>2259911.11</td><td>2299122.68</td><td>2353755.64</td><td></td><td>2227658.87</td><td></td></tr>
+<tr><th>256</th><td>8977381.55</td><td>9357187.88</td><td>9256901.15</td><td></td><td>8873768.42</td><td></td></tr>
+<tr><th>1024</th><td>37716669.26</td><td>36596770.26</td><td>36440048.48</td><td></td><td>36524127.63</td><td></td></tr>
+<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>274117158.21</td><td>292256000.00</td><td>289096006.37</td><td></td><td>266356590.26</td><td></td></tr>
+<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>The "numbers" in the column "blocksize" are in bytes.</p>
+<p>All other "numbers" are in bytes per second processed.</p>
+<h1>AES ECB decryption performance</h1>
+<img src="./aes-ecb-decrypt.png" alt="aes-ecb-decrypt"/>
+<table><tr><th>blocksize</th><th>aes-128-ecb-gpu</th><th>aes-128-ecb-cpu</th><th>aes-192-ecb-gpu</th><th>aes-192-ecb-cpu</th><th>aes-256-ecb-gpu</th><th>aes-256-ecb-cpu</th></tr>
+<tr><th>16</th><td>608606.90</td><td></td><td>566947.21</td><td></td><td>539387.17</td><td></td></tr>
+<tr><th>64</th><td>2390303.76</td><td></td><td>2289972.93</td><td></td><td>2156220.38</td><td></td></tr>
+<tr><th>256</th><td>9516584.27</td><td></td><td>9039464.68</td><td></td><td>8642812.12</td><td></td></tr>
+<tr><th>1024</th><td>37330109.63</td><td></td><td>37877600.00</td><td></td><td>35006962.16</td><td></td></tr>
+<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>286874566.04</td><td></td><td>275119268.91</td><td></td><td>257250197.01</td><td></td></tr>
+<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>The "numbers" in the column "blocksize" are in bytes.</p>
+<p>All other "numbers" are in bytes per second processed.</p>
+<h1>AES CBC encryption performance</h1>
+<img src="./aes-cbc-encrypt.png" alt="aes-cbc-encrypt"/>
+<table><tr><th>blocksize</th><th>aes-128-cbc-gpu</th><th>aes-128-cbc-cpu</th><th>aes-192-cbc-gpu</th><th>aes-192-cbc-cpu</th><th>aes-256-cbc-gpu</th><th>aes-256-cbc-cpu</th></tr>
+<tr><th>16</th><td>1386514.29</td><td></td><td>1327657.54</td><td></td><td>1356341.22</td><td></td></tr>
+<tr><th>64</th><td>5443936.69</td><td></td><td>5340436.88</td><td></td><td>5342462.19</td><td></td></tr>
+<tr><th>256</th><td>21128653.52</td><td></td><td>21219748.57</td><td></td><td>21648942.55</td><td></td></tr>
+<tr><th>1024</th><td>82294264.79</td><td></td><td>83622765.71</td><td></td><td>83231157.30</td><td></td></tr>
+<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>589509870.68</td><td></td><td>581713920.00</td><td></td><td>598087641.06</td><td></td></tr>
+<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>The "numbers" in the column "blocksize" are in bytes.</p>
+<p>All other "numbers" are in bytes per second processed.</p>
+<h1>AES CBC decryption performance</h1>
+<img src="./aes-cbc-decrypt.png" alt="aes-cbc-decrypt"/>
+<table><tr><th>blocksize</th><th>aes-128-cbc-gpu</th><th>aes-128-cbc-cpu</th><th>aes-192-cbc-gpu</th><th>aes-192-cbc-cpu</th><th>aes-256-cbc-gpu</th><th>aes-256-cbc-cpu</th></tr>
+<tr><th>16</th><td>564115.99</td><td></td><td>552686.57</td><td></td><td>531127.27</td><td></td></tr>
+<tr><th>64</th><td>2258914.50</td><td></td><td>2216677.15</td><td></td><td>2096874.91</td><td></td></tr>
+<tr><th>256</th><td>8904436.36</td><td></td><td>8600533.33</td><td></td><td>8157834.22</td><td></td></tr>
+<tr><th>1024</th><td>34349638.95</td><td></td><td>33643266.92</td><td></td><td>31901719.54</td><td></td></tr>
+<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>252151628.90</td><td></td><td>245564652.31</td><td></td><td>228781923.66</td><td></td></tr>
+<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>The "numbers" in the column "blocksize" are in bytes.</p>
+<p>All other "numbers" are in bytes per second processed.</p>
+</body></html>
+<h1>AES CTR encryption performance</h1>
+<img src="./aes-ctr-encrypt.png" alt="aes-ctr-encrypt"/>
+<table><tr><th>blocksize</th><th>aes-128-ctr-gpu</th><th>aes-128-ctr-cpu</th><th>aes-192-ctr-gpu</th><th>aes-192-ctr-cpu</th><th>aes-256-ctr-gpu</th><th>aes-256-ctr-cpu</th></tr>
+<tr><th>16</th><td>435649360.54</td><td></td><td>380883210.67</td><td></td><td>339673696.00</td><td></td></tr>
+<tr><th>64</th><td>1360579776.00</td><td></td><td>1209927701.33</td><td></td><td>1119663133.11</td><td></td></tr>
+<tr><th>256</th><td>2889235712.00</td><td></td><td>2577656808.03</td><td></td><td>2270227029.33</td><td></td></tr>
+<tr><th>1024</th><td>3792032426.67</td><td></td><td>3152336213.33</td><td></td><td>2737451349.33</td><td></td></tr>
+<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>4167122450.84</td><td></td><td>3379317811.37</td><td></td><td>2913080679.60</td><td></td></tr>
+<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>The "numbers" in the column "blocksize" are in bytes.</p>
+<p>All other "numbers" are in bytes per second processed.</p>
+<h1>AES CTR decryption performance</h1>
+<img src="./aes-ctr-decrypt.png" alt="aes-ctr-decrypt"/>
+<table><tr><th>blocksize</th><th>aes-128-ctr-gpu</th><th>aes-128-ctr-cpu</th><th>aes-192-ctr-gpu</th><th>aes-192-ctr-cpu</th><th>aes-256-ctr-gpu</th><th>aes-256-ctr-cpu</th></tr>
+<tr><th>16</th><td>383814640.00</td><td></td><td>342590057.53</td><td></td><td>290414257.53</td><td></td></tr>
+<tr><th>64</th><td>1248888832.00</td><td></td><td>1129473130.67</td><td></td><td>1013199368.56</td><td></td></tr>
+<tr><th>256</th><td>2881365361.87</td><td></td><td>2526549276.25</td><td></td><td>2158022121.74</td><td></td></tr>
+<tr><th>1024</th><td>3779213653.33</td><td></td><td>3141356885.33</td><td></td><td>2697979904.00</td><td></td></tr>
+<tr><th>2048</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4096</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8192</th><td>4144634177.93</td><td></td><td>3371460066.89</td><td></td><td>2905244853.51</td><td></td></tr>
+<tr><th>16384</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>32768</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>65536</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>131072</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>262144</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>524288</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>1048576</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>2097152</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>4194304</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><th>8388608</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>The "numbers" in the column "blocksize" are in bytes.</p>
+<p>All other "numbers" are in bytes per second processed.</p>
