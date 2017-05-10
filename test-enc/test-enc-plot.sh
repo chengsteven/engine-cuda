@@ -2,7 +2,7 @@
 #
 # @version 0.1.0 (2010)
 # @author Paolo Margara <paolo.margara@gmail.com>
-# 
+#
 # Copyright 2010 Paolo Margara
 #
 # This file is part of Engine_cudamrg.
@@ -11,7 +11,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License or
 # any later version.
-# 
+#
 # Engine_cudamrg is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -20,7 +20,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Engine_cudamrg.  If not, see <http://www.gnu.org/licenses/>.
 #
+OUTPUT_DIR='./test-enc-'$(date +%d-%m-%Y_%R)
 ./aes-ecb-encrypt.plt > aes-ecb-encrypt.png
 ./aes-cbc-encrypt.plt > aes-cbc-encrypt.png
+./aes-ctr-encrypt.plt > aes-ctr-encrypt.png
 ./aes-ecb-decrypt.plt > aes-ecb-decrypt.png
 ./aes-cbc-decrypt.plt > aes-cbc-decrypt.png
+./aes-ctr-decrypt.plt > aes-ctr-decrypt.png
+mkdir $OUTPUT_DIR
+mv *.dat $OUTPUT_DIR
+mv *.png $OUTPUT_DIR

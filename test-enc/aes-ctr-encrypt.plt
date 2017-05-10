@@ -103,7 +103,7 @@ set nox2tics
 set noy2tics
 set cbtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set cbtics autofreq  norangelimit
-set title "Encryption performance with AES ECB"
+set title "Encryption performance with AES CTR"
 set title  offset character 0, 0, 0 font "" norotate
 set timestamp bottom
 set timestamp ""
@@ -148,5 +148,5 @@ set fontpath
 set fit noerrorvariables
 set terminal png size 1000,500
 GNUTERM = "wxt"
-plot 'aes-128-ecb.dat' using 1 title 'AES 128 ECB GPU' with linespoints,'aes-192-ecb.dat' using 1 title 'AES 192 ECB GPU' with linespoint,'aes-256-ecb.dat' using 1 title 'AES 256 ECB GPU' with linespoint, 'aes-128-ecb-cpu.dat' using 1 title 'AES 128 ECB CPU' with linespoints,'aes-192-ecb-cpu.dat' using 1 title 'AES 192 ECB CPU' with linespoint,'aes-256-ecb-cpu.dat' using 1 title 'AES 256 ECB CPU' with linespoint
+plot 'aes-128-ctr.dat' using 1 title 'AES 128 CTR GPU' with linespoints,'aes-192-ctr.dat' using 1 title 'AES 192 CTR GPU' with linespoint,'aes-256-ctr.dat' using 1 title 'AES 256 CTR GPU' with linespoint, 'aes-128-ctr-cpu.dat' using 1 title 'AES 128 CTR CPU' with linespoints,'aes-192-ctr-cpu.dat' using 1 title 'AES 192 CTR CPU' with linespoint,'aes-256-ctr-cpu.dat' using 1 title 'AES 256 CTR CPU' with linespoint
 #    EOF
