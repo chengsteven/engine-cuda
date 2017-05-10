@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 
-ENC_CIPHERS=(aes-128-ecb aes-128-ctr)
-DEC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
-# ENC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
-# DEC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
+# ENC_CIPHERS=(aes-128-ecb aes-128-ctr)
+# DEC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
+ENC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
+DEC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
 # ENC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
 # DEC_CIPHERS=(aes-128-cbc aes-192-cbc aes-256-cbc)
 #DEC_CIPHERS=(camellia-128-cbc des-cbc bf-cbc aes-128-cbc)
