@@ -20,7 +20,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Engine_cudamrg.  If not, see <http://www.gnu.org/licenses/>.
 #
-OPENSSL=$HOME/local/bin/openssl
+# OPENSSL=$HOME/local/bin/openssl
+OPENSSL=/usr/local/ssl/bin/openssl
 RUN=17
 OPT=''
 # OPT='-elapsed' ## measure time in real time instead of CPU user time.
@@ -29,7 +30,8 @@ OUTPUT_DIR='./test-speed-'$(date +%d-%m-%Y_%R)
 mkdir -p $OUTPUT_DIR
 mkdir -p data
 
-for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
+for cipher in aes-128-ctr aes-192-ctr aes-256-ctr
+    #aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
 	do
 	$OPENSSL speed $OPT -engine cudamrg -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher.txt
 	for i in $(seq 1 $RUN)
@@ -40,7 +42,7 @@ for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-25
 	rm ./data/out-filtered-$cipher.txt
 	done
 
-for cipher in aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
+for cipher in aes-128-ctr aes-192-ctr aes-256-ctr #aes-128-ecb aes-192-ecb aes-256-ecb aes-128-cbc aes-192-cbc aes-256-cbc aes-128-ctr aes-192-ctr aes-256-ctr
 	do
 	$OPENSSL speed $OPT -engine cudamrg -decrypt -evp $cipher -mr | egrep -e '+H:' -e '+F:' | sed s/+H:// | sed s/+F:22:$cipher:// > ./data/out-filtered-$cipher-decrypt.txt
 	for i in $(seq 1 $RUN)
