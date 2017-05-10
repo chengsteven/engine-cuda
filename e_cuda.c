@@ -159,10 +159,13 @@ IMPLEMENT_DYNAMIC_BIND_FN(cuda_bind_fn)
 static int cuda_cipher_nids[] = {
 	NID_aes_128_cbc,
 	NID_aes_128_ecb,
+	NID_aes_128_ctr,
 	NID_aes_192_cbc,
 	NID_aes_192_ecb,
+	NID_aes_192_ctr,
 	NID_aes_256_cbc,
 	NID_aes_256_ecb,
+	NID_aes_256_ctr,
 	NID_bf_cbc,
 	NID_bf_ecb,
 	NID_camellia_128_cbc,
@@ -234,6 +237,7 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    break;
 	  case NID_aes_128_ecb:
 	  case NID_aes_128_cbc:
+	  case NID_aes_128_ctr:
 	    {
 	    if (!quiet && verbose) fprintf(stdout,"Start calculating AES-128 key schedule...\n");
 	    AES_KEY aes_key_schedule;
@@ -248,6 +252,7 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    break;
 	  case NID_aes_192_ecb:
 	  case NID_aes_192_cbc:
+	  case NID_aes_192_ctr:
 	    if (!quiet && verbose) fprintf(stdout,"Start calculating AES-192 key schedule...\n");
 	    {
 	    AES_KEY aes_key_schedule;
@@ -262,6 +267,7 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    break;
 	  case NID_aes_256_ecb:
 	  case NID_aes_256_cbc:
+	  case NID_aes_256_ctr:
 	    if (!quiet && verbose) fprintf(stdout,"Start calculating AES-256 key schedule...\n");
 	    {
 	    AES_KEY aes_key_schedule;
@@ -382,10 +388,13 @@ static const EVP_CIPHER cuda_##lciph##_##ksize##_##lmode = {  \
 
 DECLARE_EVP(aes,AES,128,cbc,CBC);
 DECLARE_EVP(aes,AES,128,ecb,ECB);
+DECLARE_EVP(aes,AES,128,ctr,CTR);
 DECLARE_EVP(aes,AES,192,cbc,CBC);
 DECLARE_EVP(aes,AES,192,ecb,ECB);
+DECLARE_EVP(aes,AES,192,ctr,CTR);
 DECLARE_EVP(aes,AES,256,cbc,CBC);
 DECLARE_EVP(aes,AES,256,ecb,ECB);
+DECLARE_EVP(aes,AES,256,ctr,CTR);
 DECLARE_EVP(bf,BF,128,cbc,CBC);
 DECLARE_EVP(bf,BF,128,ecb,ECB);
 DECLARE_EVP(camellia,CAMELLIA,128,cbc,CBC);
@@ -439,17 +448,26 @@ static int cuda_ciphers(ENGINE *e, const EVP_CIPHER **cipher, const int **nids, 
 	  case NID_aes_128_cbc:
 	    *cipher = &cuda_aes_128_cbc;
 	    break;
+	  case NID_aes_128_ctr:
+	    *cipher = &cuda_aes_128_ctr;
+	    break;
 	  case NID_aes_192_ecb:
 	    *cipher = &cuda_aes_192_ecb;
 	    break;
 	  case NID_aes_192_cbc:
 	    *cipher = &cuda_aes_192_cbc;
 	    break;
+	  case NID_aes_192_ctr:
+	    *cipher = &cuda_aes_192_ctr;
+	    break;
 	  case NID_aes_256_ecb:
 	    *cipher = &cuda_aes_256_ecb;
 	    break;
 	  case NID_aes_256_cbc:
 	    *cipher = &cuda_aes_256_cbc;
+	    break;
+	  case NID_aes_256_ctr:
+	    *cipher = &cuda_aes_256_ctr;
 	    break;
 	  default:
 	    *cipher = NULL;
