@@ -203,6 +203,7 @@ extern "C" void cuda_device_init(int *nm, int buffer_size, int output_verbosity,
 }
 
 extern "C" void cuda_device_finish(uint8_t *host_data, uint64_t *device_data) {
+    printf("FINISHING\n");
 	cudaError_t cudaerrno;
 
 	if (output_verbosity>=OUTPUT_NORMAL) fprintf(stdout, "\nDone. Finishing up...\n");
@@ -221,10 +222,10 @@ extern "C" void cuda_device_finish(uint8_t *host_data, uint64_t *device_data) {
 	_CUDA(cudaFree(device_data));
 #endif
 
-	if(output_verbosity>=OUTPUT_NORMAL) {
+	//if(output_verbosity>=OUTPUT_NORMAL) {
 		_CUDA(cudaEventRecord(time_stop,0));
 		_CUDA(cudaEventSynchronize(time_stop));
 		_CUDA(cudaEventElapsedTime(&time_elapsed,time_start,time_stop));
 		fprintf(stdout,"\nTotal time: %f milliseconds\n",time_elapsed);
-	}
+	//}
 }
