@@ -76,6 +76,8 @@ int cuda_finish(ENGINE * engine) {
 }
 
 int cuda_init(ENGINE * engine) {
+    printf("VERBOSE\n");
+    inc_verbose();
 	if (!quiet && verbose) fprintf(stdout, "initializing engine\n");
 	int verbosity=OUTPUT_NORMAL;
 	if (quiet==1)

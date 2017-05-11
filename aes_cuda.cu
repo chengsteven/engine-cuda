@@ -1288,8 +1288,6 @@ __global__ void AES256decKernel_cbc(DATA_TYPE data[], DATA_TYPE data_out[]) {
 }
 
 __global__ void AES128decKernel_ctr(DATA_TYPE data[], DATA_TYPE data_out[]) {
-    printf("code is running\n");
-
 	GLOBAL_LOAD_SHARED_SETUP
 	COPY_CONSTANT_SHARED_DEC
 
@@ -1358,8 +1356,11 @@ extern "C" void AES_cuda_transfer_iv(const unsigned char *iv) {
 }
 
 extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
+    printf("AES_cuda_crypt\n");
 
 	int gridSize = c->nbytes/(MAX_THREAD*AES_BLOCK_SIZE);
+
+    printf("TransferHostToDevice\n");
 
 	transferHostToDevice(c->in, (uint32_t *)c->d_in, c->host_data, c->nbytes);
 
@@ -1379,8 +1380,10 @@ extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
 	#endif
 
 	CUDA_START_TIME
+    printf("START TIME\n");
 
 	if(c->ctx->encrypt && EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_ECB_MODE) {
+        printf("ECB Encrypt\n");
 		switch(EVP_CIPHER_CTX_key_length(c->ctx)) {
 			case 16:
 				AES128encKernel<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in);
@@ -1393,6 +1396,7 @@ extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
 				break;
 		}
 	} else if (!c->ctx->encrypt && EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_ECB_MODE) {
+        printf("ECB Decrypt\n");
 		switch(EVP_CIPHER_CTX_key_length(c->ctx)) {
 			case 16:
 				AES128decKernel<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in);
@@ -1405,6 +1409,7 @@ extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
 				break;
 		}
 	} else if (!c->ctx->encrypt && EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_CBC_MODE) {
+        printf("CBC Decrypt\n");
 		switch(EVP_CIPHER_CTX_key_length(c->ctx)) {
 			case 16:
 				AES128decKernel_cbc<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in,(DATA_TYPE *)c->d_out);
@@ -1417,6 +1422,7 @@ extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
 				break;
 		}
 	} else if (!c->ctx->encrypt && EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_CTR_MODE) {
+        printf("CTR Decrypt\n");
 		switch(EVP_CIPHER_CTX_key_length(c->ctx)) {
 			case 16:
 				AES128decKernel_ctr<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in,(DATA_TYPE *)c->d_out);

@@ -203,7 +203,6 @@ extern "C" void cuda_device_init(int *nm, int buffer_size, int output_verbosity,
 }
 
 extern "C" void cuda_device_finish(uint8_t *host_data, uint64_t *device_data) {
-    printf("FINISHING\n");
 	cudaError_t cudaerrno;
 
 	if (output_verbosity>=OUTPUT_NORMAL) fprintf(stdout, "\nDone. Finishing up...\n");
