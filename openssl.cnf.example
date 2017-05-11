@@ -13,7 +13,7 @@ cudamrg = cudamrg_section
 # cudamrg ENGINE specific commands
 engine_id = cudamrg
 dynamic_path = $HOME/local/lib/engines/libcudamrg.so
-default_algorithms = ALL
+# default_algorithms = ALL
 init = 1
 # cudamrg specific ctrl.
 #BUFFER_SIZE = 2
