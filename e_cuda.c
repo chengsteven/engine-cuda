@@ -319,10 +319,13 @@ static int cuda_crypt(EVP_CIPHER_CTX *ctx, unsigned char *out_arg, const unsigne
 	    break;
 	  case NID_aes_128_ecb:
 	  case NID_aes_128_cbc:
+	  case NID_aes_128_ctr:
 	  case NID_aes_192_ecb:
 	  case NID_aes_192_cbc:
+	  case NID_aes_192_ctr:
 	  case NID_aes_256_ecb:
 	  case NID_aes_256_cbc:
+	  case NID_aes_256_ctr:
 	    cuda_device_crypt = AES_cuda_crypt;
 	    break;
 	  default:

@@ -844,12 +844,12 @@ uint8_t  *h_iv;
 		AES_ENC_STEP_CTR(n,D,S,3,0,1,2);
 
     #define AES_ENC_STEP_CTR(n,D,S,W,X,Y,Z) \
-        AES_ENC_STEP(n,D,S,W,X,Y,Z); \
-        D##W ^= d_iv[threadIdx.x];
+        AES_ENC_STEP(n,D,S,W,X,Y,Z);
+        //D##W ^= d_iv[threadIdx.x];
 
     #define AES_FINAL_ENC_STEP_CTR(N,W,X,Y,Z) \
-        AES_FINAL_ENC_STEP(N,W,X,Y,Z); \
-        s##W ^= d_iv[threadIdx.x];
+        AES_FINAL_ENC_STEP(N,W,X,Y,Z);
+        //s##W ^= d_iv[threadIdx.x];
 
 	#define AES_FINAL_ENC_ROUND_CTR(N) \
 		AES_FINAL_ENC_STEP_CTR(N,0,1,2,3); \
@@ -880,12 +880,12 @@ uint8_t  *h_iv;
 					data[blockIdx.x*MAX_THREAD+SX] = p_state;
 
 	#define AES_ENC_ROUND_CTR(n,D,S) \
-		AES_ENC_ROUND(n,D,S); \
-        D[SX] ^= d_iv[threadIdx.x];
+		AES_ENC_ROUND(n,D,S);
+        //D[SX] ^= d_iv[threadIdx.x];
 
 	#define AES_FINAL_ENC_ROUND_CTR(N) \
-        AES_FINAL_ENC_ROUND(N); \
-        data[blockIdx.x*MAX_THREAD+SX] ^= d_iv[threadIdx.x]
+        AES_FINAL_ENC_ROUND(N);
+        //data[blockIdx.x*MAX_THREAD+SX] ^= d_iv[threadIdx.x]
 
 #endif
 
@@ -1110,7 +1110,8 @@ __global__ void AES256encKernel_ctr(DATA_TYPE data[]) {
 		}
 
 	#define AES_FINAL_DEC_ROUND_CTR(N) \
-		AES_FINAL_DEC_STEP(N,0,3,2,1); \
+        AES_FINAL_DEC_ROUND(N);
+/*		AES_FINAL_DEC_STEP(N,0,3,2,1); \
 		AES_FINAL_DEC_STEP(N,1,0,3,2); \
 		AES_FINAL_DEC_STEP(N,2,1,0,3); \
 		AES_FINAL_DEC_STEP(N,3,2,1,0); \
@@ -1126,7 +1127,7 @@ __global__ void AES256encKernel_ctr(DATA_TYPE data[]) {
 			data_out[2*TX] = load; \
 			load = ((uint64_t)s2 | (((uint64_t)s3) << 32)) ^ data[2*(TX-1)+1]; \
 			data_out[2*TX+1] = load; \
-		}
+		}*/
 
 #else
 
@@ -1154,14 +1155,16 @@ __global__ void AES256encKernel_ctr(DATA_TYPE data[]) {
 						__syncthreads();\
 						data[blockIdx.x*MAX_THREAD+SX] = p_state;
 
-	#define AES_DEC_ROUND_CTR(n,D,S)	D[SX] = TD(0)[S[SX] & 0xff];\
+	#define AES_DEC_ROUND_CTR(n,D,S) AES_DEC_ROUND(n,D,S);
+                    /*D[SX] = TD(0)[S[SX] & 0xff];\
 					D[SX] ^= TD(1)[(S[(3+threadIdx.x)%4+ROW] >> 8) & 0xff]; \
 					D[SX] ^= TD(2)[(S[(2+threadIdx.x)%4+ROW] >>  16) & 0xff]; \
 					D[SX] ^= TD(3)[S[(1+threadIdx.x)%4+ROW] >> 24]; \
-					D[SX] ^= aes_key[n+threadIdx.x]; \
-                    D[SX] ^= d_iv[threadIdx.x];
+					D[SX] ^= aes_key[n+threadIdx.x];
+                    //D[SX] ^= d_iv[threadIdx.x];*/
 
-	#define AES_FINAL_DEC_ROUND_CTR(N)	register uint32_t p_state = (Td4[(t[SX]) & 0xff]); \
+	#define AES_FINAL_DEC_ROUND_CTR(N) AES_FINAL_DEC_ROUND(N);
+                       /*register uint32_t p_state = (Td4[(t[SX]) & 0xff]); \
 						p_state ^= (Td4[(t[(3+threadIdx.x)%4+ROW] >>  8) & 0xff] <<  8); \
 						p_state ^= (Td4[(t[(2+threadIdx.x)%4+ROW] >> 16) & 0xff] << 16); \
 						p_state ^= (Td4[(t[(1+threadIdx.x)%4+ROW] >> 24)       ] << 24); \
@@ -1170,7 +1173,7 @@ __global__ void AES256encKernel_ctr(DATA_TYPE data[]) {
 							p_state ^= d_iv[threadIdx.x];\
 						} else { p_state ^= data[blockIdx.x*MAX_THREAD+SX-4]; }\
 						__syncthreads();\
-						data[blockIdx.x*MAX_THREAD+SX] = p_state;
+						data[blockIdx.x*MAX_THREAD+SX] = p_state;*/
 #endif
 
 __global__ void AES128decKernel(DATA_TYPE data[]) {
@@ -1419,6 +1422,19 @@ extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
 				break;
 			case 32:
 				AES256decKernel_cbc<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in,(DATA_TYPE *)c->d_out);
+				break;
+		}
+	} else if (c->ctx->encrypt && EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_CTR_MODE) {
+        printf("CTR Encrypt\n");
+		switch(EVP_CIPHER_CTX_key_length(c->ctx)) {
+			case 16:
+				AES128encKernel_ctr<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in);
+				break;
+			case 24:
+				AES192encKernel_ctr<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in);
+				break;
+			case 32:
+				AES256encKernel_ctr<<<gridSize,dimBlock>>>((DATA_TYPE *)c->d_in);
 				break;
 		}
 	} else if (!c->ctx->encrypt && EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_CTR_MODE) {
