@@ -796,10 +796,10 @@ extern "C" int AES_cuda_set_decrypt_key(const unsigned char *userKey, const int 
 
 #ifdef AES_COARSE
 	#define DATA_TYPE uint64_t
-	__constant__ uint64_t d_iv[2];
+	__constant__ uint64_t d_iv[2] = {0};
 #else
 	#define DATA_TYPE uint32_t
-	__constant__ uint64_t d_iv[4];
+	__constant__ uint64_t d_iv[4] = {0};
 #endif
 
 __constant__ uint32_t aes_key[61];		// TODO: Careful with uint32_t
@@ -884,12 +884,34 @@ __constant__ uint32_t aes_key[61];		// TODO: Careful with uint32_t
 		load ^= (uint64_t)aes_key[2] | ((uint64_t)aes_key[3] << 32); \
 		s2 = load; \
 		s3 = load >> 32;
+
+	#define CTR_LOAD_ENC_SETUP \
+		register uint32_t t0, t1, t2, t3, s0, s1, s2, s3; \
+		register uint64_t load; \
+		load = data[2*TX]; \
+		load ^= (uint64_t)aes_key[0] | ((uint64_t)aes_key[1] << 32); \
+        load ^= IV_INDEX(d_iv, 0, 2*TX+0); \
+		s0 = load; \
+		s1 = load >> 32; \
+		load = data[2*TX+1]; \
+        load ^= IV_INDEX(d_iv, 1, 2*TX+1); \
+		load ^= (uint64_t)aes_key[2] | ((uint64_t)aes_key[3] << 32); \
+		s2 = load; \
+		s3 = load >> 32;
 #else
 	#define GLOBAL_LOAD_SHARED_SETUP \
 		__shared__ uint32_t t[MAX_THREAD]; \
 		__shared__ uint32_t s[MAX_THREAD]; \
 		s[SX] = data[__umul24(blockIdx.x,MAX_THREAD)+SX] ^ aes_key[threadIdx.x];
+
+	#define CTR_LOAD_ENC_SETUP \
+		__shared__ uint32_t t[MAX_THREAD]; \
+		__shared__ uint32_t s[MAX_THREAD]; \
+		s[SX] = data[__umul24(blockIdx.x,MAX_THREAD)+SX] ^ aes_key[threadIdx.x];\
+        s[SX] ^= IV_INDEX(d_iv,0 , SX);
 #endif
+
+#define IV_INDEX(iv_arr, idx, ct) (((uint64_t) iv_arr[idx]+TX))
 
 __global__ void AES128encKernel(DATA_TYPE data[]) {
 
@@ -909,8 +931,7 @@ __global__ void AES128encKernel(DATA_TYPE data[]) {
 }
 
 __global__ void AES128encKernel_ctr(DATA_TYPE data[]) {
-
-	GLOBAL_LOAD_SHARED_SETUP
+	CTR_LOAD_ENC_SETUP
 	COPY_CONSTANT_SHARED_ENC
 
 	AES_ENC_ROUND( 4,t,s);
@@ -1076,24 +1097,23 @@ __global__ void AES256encKernel_ctr(DATA_TYPE data[]) {
 		}
 
 	#define AES_FINAL_DEC_ROUND_CTR(N) \
-        AES_FINAL_DEC_ROUND(N);
-/*		AES_FINAL_DEC_STEP(N,0,3,2,1); \
+		AES_FINAL_DEC_STEP(N,0,3,2,1); \
 		AES_FINAL_DEC_STEP(N,1,0,3,2); \
 		AES_FINAL_DEC_STEP(N,2,1,0,3); \
 		AES_FINAL_DEC_STEP(N,3,2,1,0); \
 		if(blockIdx.x == 0 && threadIdx.x == 0) { \
 			load = ((uint64_t)s0) | ((uint64_t)s1) << 32; \
-			load ^= d_iv[0]; \
+			load ^= IV_INDEX(d_iv, 0, 0); \
 			data_out[0] = load; \
 			load = ((uint64_t)s2) | ((uint64_t)s3) << 32; \
-			load ^= d_iv[1]; \
+			load ^= IV_INDEX(d_iv, 1, 0); \
 			data_out[1] = load; \
-		} else { \
-			load = ((uint64_t)s0 | (((uint64_t)s1) << 32)) ^ data[2*(TX-1)]; \
-			data_out[2*TX] = load; \
-			load = ((uint64_t)s2 | (((uint64_t)s3) << 32)) ^ data[2*(TX-1)+1]; \
-			data_out[2*TX+1] = load; \
-		}*/
+        } else { \
+            load = ((uint64_t)s0 | (((uint64_t)s1) << 32)) ^ IV_INDEX(d_iv, 0, 2*(TX-1)); \
+            data_out[2*TX] = load; \
+            load = ((uint64_t)s2 | (((uint64_t)s3) << 32)) ^ IV_INDEX(d_iv, 1, 2*(TX-1)+1); \
+            data_out[2*TX+1] = load; \
+        }
 
 #else
 
@@ -1127,10 +1147,10 @@ __global__ void AES256encKernel_ctr(DATA_TYPE data[]) {
 						p_state ^= (Td4[(t[(1+threadIdx.x)%4+ROW] >> 24)       ] << 24); \
 						p_state ^= aes_key[threadIdx.x+N];\
 						if(blockIdx.x==0 && threadIdx.x <4 && threadIdx.y ==0) {\
-							p_state ^= d_iv[threadIdx.x];\
-						} else { p_state ^= data[blockIdx.x*MAX_THREAD+SX-4]; }\
+							p_state ^= IV_INDEX(d_iv, threadIdx.x, 0);\
+						} else { p_state ^= IV_INDEX(d_iv, threadIdx.x % 4, 0); }\
 						__syncthreads();\
-						data[blockIdx.x*MAX_THREAD+SX] = p_state;*/
+						data[blockIdx.x*MAX_THREAD+SX] = p_state;
 #endif
 
 __global__ void AES128decKernel(DATA_TYPE data[]) {
@@ -1411,8 +1431,8 @@ extern "C" void AES_cuda_crypt(cuda_crypt_parameters *c) {
 
 	CUDA_STOP_TIME("AES        ")
 
-	if(EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_ECB_MODE) {
-		transferDeviceToHost(c->out, (uint32_t *)c->d_in, c->host_data, c->host_data, c->nbytes);
+	if(c->ctx->encrypt || EVP_CIPHER_CTX_mode(c->ctx) == EVP_CIPH_ECB_MODE) {
+	    transferDeviceToHost(c->out, (uint32_t *)c->d_in, c->host_data, c->host_data, c->nbytes);
 	} else {
 		transferDeviceToHost(c->out, (uint32_t *)c->d_out, c->host_data, c->host_data, c->nbytes);
 		//AES_cuda_transfer_iv(c->in+c->nbytes-AES_BLOCK_SIZE);

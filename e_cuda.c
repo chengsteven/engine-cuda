@@ -249,8 +249,6 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    	AES_cuda_set_decrypt_key(key,128,&aes_key_schedule);
 	    AES_cuda_transfer_key_schedule(&aes_key_schedule);
 	    }
-	    if(iv)
-		AES_cuda_transfer_iv(iv);
 	    break;
 	  case NID_aes_192_ecb:
 	  case NID_aes_192_cbc:
@@ -263,8 +261,6 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    else
 	    	AES_cuda_set_decrypt_key(key,192,&aes_key_schedule);
 	    AES_cuda_transfer_key_schedule(&aes_key_schedule);
-	    if(iv)
-		AES_cuda_transfer_iv(iv);
 	    }
 	    break;
 	  case NID_aes_256_ecb:
@@ -278,13 +274,24 @@ static int cuda_init_key(EVP_CIPHER_CTX *ctx, const unsigned char *key, const un
 	    else
 	    	AES_cuda_set_decrypt_key(key,256,&aes_key_schedule);
 	    AES_cuda_transfer_key_schedule(&aes_key_schedule);
-	    if(iv)
-		AES_cuda_transfer_iv(iv);
 	    }
 	    break;
 	  default:
 	    return 0;
 	}
+	switch ((ctx->cipher)->nid) {
+      case NID_aes_128_cbc:
+      case NID_aes_128_ctr:
+      case NID_aes_192_cbc:
+      case NID_aes_192_ctr:
+      case NID_aes_256_cbc:
+      case NID_aes_256_ctr:
+        if(iv)
+            AES_cuda_transfer_iv(iv);
+        break;
+      default:
+        break;
+    }
 	if (!quiet && verbose) fprintf(stdout,"DONE!\n");
 	return 1;
 }
