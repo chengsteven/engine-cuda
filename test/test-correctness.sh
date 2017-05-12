@@ -3,15 +3,15 @@
 
 # ENC_CIPHERS=(aes-128-ecb aes-128-ctr)
 # DEC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
-ENC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
-DEC_CIPHERS=(aes-128-ctr aes-192-ctr aes-256-ctr)
+ENC_CIPHERS=(aes-128-ctr )
+DEC_CIPHERS=(aes-128-ctr )
 # ENC_CIPHERS=(aes-128-ecb aes-128-cbc aes-128-ctr)
 # DEC_CIPHERS=(aes-128-cbc aes-192-cbc aes-256-cbc)
 #DEC_CIPHERS=(camellia-128-cbc des-cbc bf-cbc aes-128-cbc)
 #DEC_CIPHERS=(camellia-128-cbc)
 
-# IV="FFFF"
-IV="ABCDEFABCDEF"
+IV="0"
+# IV="ABCDEFABCDEF"
 BUFSIZE=8388608
 OPENSSL=$HOME/local/bin/openssl
 # TODO: Use getopt or zparseopts
@@ -102,7 +102,7 @@ for cipher in $DEC_CIPHERS; do
 	echo ""
     # cat correctness.log
 	if [[ $CHKCPU != $CHKCUDA ]]; then
-		# cat correctness.log
+		cat correctness.log
 		echo ">> CAUTION: cksum mismatch!"
 		echo ">> CPU: $CHKCPU; CUDA: $CHKCUDA; "
 		echo ">> Encrypted file:"
