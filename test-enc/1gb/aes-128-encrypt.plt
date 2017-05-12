@@ -48,7 +48,7 @@ set grid xtics nomxtics ytics nomytics noztics nomztics \
  nox2tics nomx2tics noy2tics nomy2tics nocbtics nomcbtics
 set grid layerdefault   linetype 0 linewidth 1.000,  linetype 0 linewidth 1.000
 set key title ""
-set key inside right bottom vertical Right noreverse enhanced autotitles box linetype 1 linewidth 1.000
+set key inside right top vertical Right noreverse enhanced autotitles box linetype 1 linewidth 1.000
 set key noinvert samplen 4 spacing 1 width 0 height 0
 unset label
 unset arrow
@@ -104,7 +104,7 @@ set nox2tics
 set noy2tics
 set cbtics border in scale 1,0.5 mirror norotate  offset character 0, 0, 0
 set cbtics autofreq  norangelimit
-set title "Encryption performance with AES CBC"
+set title "Encryption performance with AES CTR"
 set title  offset character 0, 0, 0 font "" norotate
 set timestamp bottom
 set timestamp ""
@@ -149,5 +149,5 @@ set fontpath
 set fit noerrorvariables
 set terminal png size 1000,500
 GNUTERM = "wxt"
-plot 'aes-128-cbc.dat' using 1 title 'AES 128 CBC GPU' with linespoints,'aes-192-cbc.dat' using 1 title 'AES 192 CBC GPU' with linespoint,'aes-256-cbc.dat' using 1 title 'AES 256 CBC GPU' with linespoint,'aes-128-cbc-cpu.dat' using 1 title 'AES 128 CBC CPU' with linespoints,'aes-192-cbc-cpu.dat' using 1 title 'AES 192 CBC CPU' with linespoint,'aes-256-cbc-cpu.dat' using 1 title 'AES 256 CBC CPU' with linespoint
+plot 'aes-128-ctr.dat' using 1 title 'AES 128 CTR GPU' with linespoints,'aes-128-ctr-cpu.dat' using 1 title 'AES 128 CTR CPU' with linespoints,'aes-128-ecb.dat' using 1 title 'AES 128 ECB GPU' with linespoints,'aes-128-ecb-cpu.dat' using 1 title 'AES 128 ECB CPU' with linespoints,'aes-128-cbc.dat' using 1 title 'AES 128 CBC GPU' with linespoints,'aes-128-cbc-cpu.dat' using 1 title 'AES 128 CBC CPU' with linespoints
 #    EOF

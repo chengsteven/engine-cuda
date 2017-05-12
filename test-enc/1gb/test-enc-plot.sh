@@ -29,6 +29,3 @@ OUTPUT_DIR='./test-enc-'$(date +%d-%m-%Y_%R)
 # ./aes-ecb-decrypt.plt > aes-ecb-decrypt.png
 # ./aes-cbc-decrypt.plt > aes-cbc-decrypt.png
 # ./aes-ctr-decrypt.plt > aes-ctr-decrypt.png
-mkdir $OUTPUT_DIR
-mv *.dat $OUTPUT_DIR
-mv *.png $OUTPUT_DIR
